@@ -60,8 +60,12 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [day, setDay] = useState([])
-  
+  const [day, setDay] = useState("Monday")
+  const [days, setDays] = useState([])
+  useEffect(() => {
+    axios.get("/api/days")
+      .then(res => setDays(res.data))
+  }, [])
   const parsedAppointments = appointments.map(appointment => {
     return(<Appointment key={appointment.id} {...appointment} />)
   })
