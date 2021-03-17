@@ -4,60 +4,6 @@ import Appointment from "./Appointment"
 import DayList from "./DayList";
 import "components/Application.scss";
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-    interview: {
-      student: "Daniel James",
-      interviewer: {
-        id: 1,
-        name: "Francis",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Yamac",
-      interviewer: {
-        id: 1,
-        name: "Vasily",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-    interview: {
-      student: "Sergey",
-      interviewer: {
-        id: 1,
-        name: "Dom",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
 
 export default function Application(props) {
   const [state, setState] = useState({
@@ -67,13 +13,25 @@ export default function Application(props) {
   })
   
   const setDay = day => setState({...state, day})
-  const setDays = days => setState(prev => ({...prev, days}))
-
+  /* const setDays = days => setState(prev => ({...prev, days})) */
+  
   useEffect(() => {
-    axios.get("/api/days")
-      .then(res => setDays(res.data))
+
+    Promise.all([
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
+    ]).then((all) => {
+      console.log("all 1:", all[1], "all 2: ", all[2])
+      setState(prev => ({...prev, days:all[0].data, appointments:all[1].data}))
+    })
+
   }, [])
-  const parsedAppointments = appointments.map(appointment => {
+
+
+  const dailyAppointments = [];
+
+  const parsedAppointments = dailyAppointments.map(appointment => {
     return(<Appointment key={appointment.id} {...appointment} />)
   })
   return (
