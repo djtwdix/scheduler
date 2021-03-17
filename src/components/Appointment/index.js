@@ -8,7 +8,7 @@ import "./styles.scss"
 
 export default function Appointment(props) {
   return(
-    <div id="root">
+    <div className="appointment">
       <Header time={props.time} />
       {props.interview ? <Show id={props.id} student={props.interview.student} 
                           interviewer={props.interview.interviewer} /> : <Empty />}
