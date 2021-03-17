@@ -11,7 +11,7 @@ export default function (props) {
     console.log(name)
   }
   const save = () => {
-    props.onSave()
+    props.onSave(name, interviewer)
   }
   const reset = () => {
     setName("");
