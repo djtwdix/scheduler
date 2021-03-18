@@ -15,6 +15,7 @@ export default function Appointment(props) {
   const CREATE = "CREATE"
   const SAVING = "SAVING"
   const {mode, transition, back} = useVisualMode(props.interview? SHOW: EMPTY)
+  console.log("appointment:", props.interviewers)
 
   const onAdd = () => {
     transition(CREATE)

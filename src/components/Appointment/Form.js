@@ -6,9 +6,9 @@ export default function (props) {
   console.log(props.name)
   const [name, setName] = useState(props.name || "")
   const [interviewer, setInterviewer] = useState(props.interviewer || null)
+  console.log("form: ", props.interviewers)
   const handleInput = (event) => {
     setName(event.target.value)
-    console.log(name)
   }
   const save = () => {
     props.onSave(name, interviewer)
