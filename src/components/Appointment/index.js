@@ -6,7 +6,7 @@ import "./styles.scss"
 
 
 
-export default function Appointment(props) {
+export default function Appointment(props) {  
   return(
     <div className="appointment">
       <Header time={props.time} />
