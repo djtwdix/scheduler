@@ -14,3 +14,14 @@ export function getInterview(state, interview) {
   }
   return null;
 }
+
+export const getInterviewersForDay = (state, day) => {
+  const filteredDays = state.days.filter(item => item.name === day)
+  const interviewers = []
+  if (filteredDays.length) {
+    const interviewersOnDay = filteredDays[0].interviewers
+    console.log(interviewersOnDay)
+    interviewersOnDay.forEach(id => interviewers.push(state.interviewers[id]))
+  }
+  return interviewers
+}
