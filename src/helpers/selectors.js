@@ -7,3 +7,10 @@ export const getAppointmentsForDay = (state, day) => {
   }
   return appointments
 }
+
+export const getInterview = (state, interview) => {
+  if (interview) {
+    interview.interviewer = state.interviewers[interview.interviewer]
+  }
+  return interview
+}
