@@ -20,7 +20,6 @@ export const getInterviewersForDay = (state, day) => {
   const interviewers = []
   if (filteredDays.length) {
     const interviewersOnDay = filteredDays[0].interviewers
-    console.log(interviewersOnDay)
     interviewersOnDay.forEach(id => interviewers.push(state.interviewers[id]))
   }
   return interviewers
