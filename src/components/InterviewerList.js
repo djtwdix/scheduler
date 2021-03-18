@@ -4,7 +4,7 @@ import "./InterviewerList.scss"
 
 export default function InterviewerList(props) {
   const { interviewers, value, onChange } = props
-
+  console.log("list interviewers: ", interviewers)
   const parsedInterviewers = interviewers.map(interviewer => {
     return (
     <InterviewerListItem  name={interviewer.name} avatar={interviewer.avatar} 

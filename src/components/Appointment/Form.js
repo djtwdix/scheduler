@@ -33,7 +33,7 @@ export default function (props) {
             value={name}
             placeholder="Enter Student Name"
           /*
-            This must be a controlled componentmnmn
+            This must be a controlled component
           */
           />
         </form>

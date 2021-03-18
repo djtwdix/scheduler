@@ -29,7 +29,6 @@ export default function Application(props) {
     
   }, [])
   
-  console.log(state.interviewers)
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
@@ -58,7 +57,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {parsedAppointments}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm" interviewers={[]}/>
       </section>
     </main>
   );
