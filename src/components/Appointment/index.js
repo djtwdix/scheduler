@@ -3,7 +3,6 @@ import Header from "./Header"
 import Show from "./Show"
 import Empty from "./Empty"
 import Form from "./Form"
-import Status from "./Status"
 import "./styles.scss"
 import useVisualMode from "../../hooks/useVisualMode"
 
