@@ -9,7 +9,7 @@ import useApplicationData from "../hooks/useApplicationData"
 export default function Application() {
 
   const {state, setDay, cancelInterview, bookInterview} = useApplicationData()
-
+    console.log(state)
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day)
 
