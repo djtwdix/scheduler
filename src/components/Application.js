@@ -43,7 +43,7 @@ export default function Application(props) {
       [id]: appointment
     }
 
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+    return axios.put(`/api/appointments/${id}`, {interview})
       .then(
         setState({
           ...state,
@@ -63,7 +63,7 @@ export default function Application(props) {
       [id]: appointment
     }
     console.log(state)
-    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    return axios.delete(`/api/appointments/${id}`)
       .then(res => {
         setState({
           ...state,
