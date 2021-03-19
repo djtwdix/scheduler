@@ -24,8 +24,13 @@ export default function Appointment(props) {
     back()
   }
 
-  const onSave = () => {
-    transition(SAVING)
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    }
+
+    return interview
   }
 
   return(
@@ -35,7 +40,7 @@ export default function Appointment(props) {
                           interviewer={props.interview.interviewer} />}
                           
       {mode === EMPTY && <Empty onAdd={onAdd}/>}
-      {mode === CREATE && <Form interviewers={props.interviewers} onCancel={onCancel} onSave={onSave} />}
+      {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={onCancel}  />}
       {mode === SAVING && <Status />}
     </div>
   )
