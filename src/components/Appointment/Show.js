@@ -4,7 +4,7 @@ export default function Show(props) {
   const { student, interviewer, onEdit, onDelete } = props
 
   const handleDeleteClick = () => {
-    onDelete()
+    onDelete(props.id)
   }
 
   const handleEditClick = () => {
