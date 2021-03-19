@@ -21,7 +21,7 @@ export default function Appointment(props) {
   const CONFIRM = "CONFIRM"
   const EDIT = "EDIT"
   const ERROR_SAVE = "ERROR_SAVE"
-  const ERROR_DELETE = "ERROR_SAVE"
+  const ERROR_DELETE = "ERROR_DELETE"
   const {mode, transition, back} = useVisualMode(props.interview? SHOW: EMPTY)
 
   const onAdd = () => {
@@ -41,7 +41,7 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
     .then(res => transition(SHOW))
     .catch(err => {
-      transition(ERROR_SAVE)
+      transition(ERROR_SAVE, true)
     })
     
   }
@@ -51,9 +51,10 @@ export default function Appointment(props) {
   }
 
   const cancelInterview = (id) => {
-    transition(DELETING)
+    transition(DELETING, true)
     props.cancelInterview(id)
     .then(res => transition(EMPTY))
+    .catch(err => transition(ERROR_DELETE, true))
   }
 
   const edit = () => {
@@ -75,7 +76,7 @@ export default function Appointment(props) {
       {mode === EDIT && props.interview && <Form name={props.interview.student} interviewer={props.interview.interviewer.id} 
                               interviewers={props.interviewers} onSave={save} onCancel={onCancel} />}
       {mode === ERROR_SAVE && <Error message="Error saving your appointment" onClose={onCancel}/>}
-   {/*    {mode === ERROR_DELETE && <Error message="Error deleting your appointment" onClose={onCancel}/>} */}
+      {mode === ERROR_DELETE && <Error message="Error deleting your appointment" onClose={onCancel}/>}
     </div>
   )
 }
