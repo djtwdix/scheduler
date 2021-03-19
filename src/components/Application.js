@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Appointment from "./Appointment"
 import DayList from "./DayList";
 import "components/Application.scss";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "../helpers/selectors"
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors"
 
 
 export default function Application(props) {
@@ -13,9 +13,9 @@ export default function Application(props) {
     appointments: {},
     interviewers: {}
   })
-  
-  const setDay = day => setState({...state, day})
- 
+
+  const setDay = day => setState({ ...state, day })
+
   useEffect(() => {
 
     Promise.all([
@@ -23,23 +23,35 @@ export default function Application(props) {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers")
     ]).then((all) => {
-      setState(prev => ({...prev, days:all[0].data, appointments:all[1].data, interviewers:all[2].data}))
+      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
     })
-    
+
   }, [])
-  
+
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day)
-  
+
   const bookInterview = (id, interview) => {
-    console.log(id, interview)
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+    console.log(appointments)
+    setState({
+      ...state,
+      appointments
+    })
   }
 
   const parsedAppointments = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
-    return(<Appointment key={appointment.id} {...appointment} interview={interview} interviewers={interviewers}
-                        bookInterview={bookInterview}/>)
+    return (<Appointment key={appointment.id} {...appointment} interview={interview} interviewers={interviewers}
+      bookInterview={bookInterview} />)
   })
 
   return (
@@ -62,7 +74,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {parsedAppointments}
-        <Appointment key="last" time="5pm" interviewers={interviewers}/>
+        <Appointment key="last" time="5pm" interviewers={interviewers} />
       </section>
     </main>
   );
