@@ -3,7 +3,6 @@ import Button from "../Button"
 import InterviewerList from "../InterviewerList"
 
 export default function (props) {
-  console.log(props.name)
   const [name, setName] = useState(props.name || "")
   const [interviewer, setInterviewer] = useState(props.interviewer || null)
   const handleInput = (event) => {
