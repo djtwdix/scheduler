@@ -40,6 +40,21 @@ const state = {
       id: 2,
       name: "Tori Malcolm",
       avatar: "https://i.imgur.com/Nmx0Qxo.png"
+    },
+    "3": {
+      id: 3,
+      name: "Tylvia Palmer",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
+    },
+    "4": {
+      id: 4,
+      name: "Tori Malcolm",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
+    },
+    "5": {
+      id: 5,
+      name: "Sylvia Palmer",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
     }
   }
 };
