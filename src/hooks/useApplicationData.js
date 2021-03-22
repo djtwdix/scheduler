@@ -8,25 +8,25 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
 function reducer(state, action) {
- 
-  switch (action.type) {
+ const {type, day, days, appointments, interviewers, interview, id} = action
+  switch (type) {
     case SET_DAY:
-      return { ...state, day : action.day }
+      return { ...state, day }
 
     case SET_APPLICATION_DATA: {
-      return { ...state, days: action.days, appointments: action.appointments, 
-              interviewers: action.interviewers }
+      return { ...state, days, appointments, 
+              interviewers }
     }
 
     case SET_INTERVIEW: {
       
       const appointment = {
-        ...state.appointments[action.id],
-        interview: action.interview
+        ...state.appointments[id],
+        interview: interview
       }
       const appointments = {
         ...state.appointments,
-        [action.id]: appointment
+        [id]: appointment
       }
       
       const days = updateSpots(state.day, state.days, appointments)
