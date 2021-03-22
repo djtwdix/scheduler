@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react'
 import axios from 'axios'
 import {updateSpots} from "../helpers/selectors"
-const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
+
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
@@ -65,14 +65,6 @@ export default function useApplicationData() {
       const interviewers = all[2].data
       dispatch({type: SET_APPLICATION_DATA, days, appointments, interviewers })
     })
-    
-    
-    ws.onmessage = event => {
-      const {type, id, interview} = JSON.parse(event.data)
-      if (type === "SET_INTERVIEW") {
-        dispatch({type, id, interview})
-      }
-    }
 
   }, []) 
   
