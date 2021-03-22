@@ -1,6 +1,6 @@
 /**
  * getAppointmentsForDay() returns an appointments array
- * with appointments based on passed in day
+ * based on passed in day
  * @param  {} state
  * @param  {} day
  */
@@ -27,6 +27,7 @@ export function getInterview(state, interview) {
   }
   return null;
 }
+
 /**
  * getInterviewersForDay() returns interviewers array
  * based on interviewers from state for passed in day
@@ -45,9 +46,7 @@ export const getInterviewersForDay = (state, day) => {
 
 /**
  * countNullInterviewers() returns an integer
- * based on the amount of null interviews
- * in the passed in appointments
- * for the passed in day
+ * based on the amount of null interviews for passed in day
  * @param  {} day
  * @param  {} appointments
  */
@@ -64,10 +63,9 @@ function countNullInterviews(day, appointments) {
 
 /**
  * updateSpots() returns a days array
- * with updated spots remaining 
- * for the passed in day
- * @param  {} dayName
- * @param  {} days
+ * with updated spots remaining for passed in day
+ * @param  dayName 
+ * @param  [] days
  * @param  {} appointments
  */
 export function updateSpots(dayName, days, appointments) {
