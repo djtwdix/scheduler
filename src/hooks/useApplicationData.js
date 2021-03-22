@@ -63,7 +63,7 @@ export default function useApplicationData() {
       dispatch({type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data })
     })
     
-    ws.send("ping")
+    
     ws.onmessage = event => {
       const {type, id, interview} = JSON.parse(event.data)
       if (type === "SET_INTERVIEW") {
