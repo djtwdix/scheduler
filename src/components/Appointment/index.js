@@ -13,6 +13,8 @@ import useVisualMode from "../../hooks/useVisualMode"
 
 export default function Appointment(props) {
 
+  const {interview, id, interviewers, time } = props
+
   const EMPTY = "EMPTY"
   const SHOW = "SHOW"
   const CREATE = "CREATE"
@@ -22,7 +24,8 @@ export default function Appointment(props) {
   const EDIT = "EDIT"
   const ERROR_SAVE = "ERROR_SAVE"
   const ERROR_DELETE = "ERROR_DELETE"
-  const {mode, transition, back} = useVisualMode(props.interview? SHOW: EMPTY)
+  
+  const {mode, transition, back} = useVisualMode(interview? SHOW: EMPTY)
 
   const onAdd = () => {
     transition(CREATE)
@@ -38,7 +41,7 @@ export default function Appointment(props) {
       interviewer
     }
     transition(SAVING)
-    props.bookInterview(props.id, interview)
+    props.bookInterview(id, interview)
     .then(res => transition(SHOW))
     .catch(err => {
       transition(ERROR_SAVE, true)
@@ -62,29 +65,29 @@ export default function Appointment(props) {
   }
   
   useEffect(() => {
-    if (mode=== EMPTY && props.interview) {
+    if (mode=== EMPTY && interview) {
       transition(SHOW)
     }
   
-    if (mode === SHOW && !props.interview) {
+    if (mode === SHOW && !interview) {
       transition(EMPTY)
     }
-  }, [props.interview, transition, mode])
+  }, [interview, transition, mode])
 
   return(
     <div className="appointment">
-      <Header time={props.time} />
-      {mode === SHOW && props.interview && <Show id={props.id} student={props.interview.student} 
-                          interviewer={props.interview.interviewer} onDelete={confirm} onEdit={edit}/>}
+      <Header time={time} />
+      {mode === SHOW && interview && <Show id={id} student={interview.student} 
+                          interviewer={interview.interviewer} onDelete={confirm} onEdit={edit}/>}
                           
       {mode === EMPTY && <Empty onAdd={onAdd}/>}
-      {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={onCancel}  />}
+      {mode === CREATE && <Form interviewers={interviewers} onSave={save} onCancel={onCancel}  />}
       {mode === SAVING && <Status message="Saving"/>}
       {mode === DELETING && <Status message="Deleting"/>}
-      {mode === CONFIRM && <Confirm message="Delete the appointment?" id={props.id} onCancel={onCancel} 
+      {mode === CONFIRM && <Confirm message="Delete the appointment?" id={id} onCancel={onCancel} 
                                     onConfirm={cancelInterview}/>}
-      {mode === EDIT && props.interview && <Form name={props.interview.student} interviewer={props.interview.interviewer.id} 
-                              interviewers={props.interviewers} onSave={save} onCancel={onCancel} />}
+      {mode === EDIT && interview && <Form name={interview.student} interviewer={interview.interviewer.id} 
+                              interviewers={interviewers} onSave={save} onCancel={onCancel} />}
       {mode === ERROR_SAVE && <Error message="Error saving your appointment" onClose={onCancel}/>}
       {mode === ERROR_DELETE && <Error message="Error deleting your appointment" onClose={onCancel}/>}
     </div>
