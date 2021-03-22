@@ -1,13 +1,14 @@
 import { useReducer, useEffect } from 'react'
 import axios from 'axios'
 import {updateSpots} from "../helpers/selectors"
+const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
 function reducer(state, action) {
-
+ 
   switch (action.type) {
     case SET_DAY:
       return { ...state, day : action.day }
@@ -18,24 +19,17 @@ function reducer(state, action) {
     }
 
     case SET_INTERVIEW: {
-
-      let updateNum = 1
       
       const appointment = {
         ...state.appointments[action.id],
-        interview: {...action.interview}
+        interview: action.interview
       }
       const appointments = {
         ...state.appointments,
         [action.id]: appointment
       }
       
-
-      if (action.interview) {
-        updateNum = -1
-      }
-      
-      const days = updateSpots([...state.days], state.appointments, action.id, updateNum)
+      const days = updateSpots(state.day, state.days, appointments)
 
         return { ...state, appointments, days}
     }
@@ -57,9 +51,10 @@ export default function useApplicationData() {
   })
 
   const setDay = day => dispatch({ type: SET_DAY, day })
-
+  
+  
   useEffect(() => {
-
+    
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
@@ -67,11 +62,18 @@ export default function useApplicationData() {
     ]).then((all) => {
       dispatch({type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data })
     })
+    
+    ws.send("ping")
+    ws.onmessage = event => {
+      const {type, id, interview} = JSON.parse(event.data)
+      if (type === "SET_INTERVIEW") {
+        dispatch({type, id, interview})
+      }
+    }
 
-  }, [])
+  }, []) 
   
   const bookInterview = (id, interview) => {
-    console.log("book int", interview)
     return axios.put(`/api/appointments/${id}`, {interview})
       .then(
         dispatch({

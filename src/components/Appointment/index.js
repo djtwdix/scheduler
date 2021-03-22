@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from "./Header"
 import Show from "./Show"
 import Empty from "./Empty"
@@ -49,22 +49,32 @@ export default function Appointment(props) {
   const confirm = () => { 
     transition(CONFIRM)
   }
-
+  
   const cancelInterview = (id) => {
     transition(DELETING, true)
     props.cancelInterview(id)
     .then(res => transition(EMPTY))
     .catch(err => transition(ERROR_DELETE, true))
   }
-
+  
   const edit = () => {
     transition(EDIT)
   }
+  
+  useEffect(() => {
+    if (mode=== EMPTY && props.interview) {
+      transition(SHOW)
+    }
+  
+    if (mode === SHOW && !props.interview) {
+      transition(EMPTY)
+    }
+  }, [props.interview, transition, mode])
 
   return(
     <div className="appointment">
       <Header time={props.time} />
-      {mode === SHOW && <Show id={props.id} student={props.interview.student} 
+      {mode === SHOW && props.interview && <Show id={props.id} student={props.interview.student} 
                           interviewer={props.interview.interviewer} onDelete={confirm} onEdit={edit}/>}
                           
       {mode === EMPTY && <Empty onAdd={onAdd}/>}

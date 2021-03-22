@@ -25,7 +25,7 @@ export const getInterviewersForDay = (state, day) => {
   return interviewers
 }
 
-export function updateSpots(days, appointments, id, value) {
+/* export function updateSpots(days, appointments, id, value) {
   days.forEach(day => {
     if ((!appointments[id].interview && value === -1) || value === 1) {
       if(day.appointments.includes(id)) {
@@ -34,4 +34,22 @@ export function updateSpots(days, appointments, id, value) {
     }
   })
   return days;
-}
+} */
+
+function countNullInterviews(day, appointments) {
+  let count = 0;
+  for (const id of day.appointments) {
+    const appointment = appointments[id];
+    if (!appointment.interview) {
+      count++
+    }
+  }
+  return count;
+};
+export function updateSpots(dayName, days, appointments) {
+  const spreadDays = [...days];
+  const day = spreadDays.find(item => item.name === dayName);
+  const nulls = countNullInterviews(day, appointments);
+  day.spots = nulls;
+  return spreadDays;
+};
