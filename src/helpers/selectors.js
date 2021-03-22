@@ -19,7 +19,7 @@ export const getAppointmentsForDay = (state, day) => {
  * with complete interviewer info from state
  * based on passed in interviewer id
  * @param  {} state
- * @param  {} interview // student (name) and interviewer (id)
+ * @param  {} interview contains student (name) and interviewer (id)
  */
 export function getInterview(state, interview) {
   if (interview){
