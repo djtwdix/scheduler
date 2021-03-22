@@ -2,13 +2,14 @@ import { useReducer, useEffect } from 'react'
 import axios from 'axios'
 import {updateSpots} from "../helpers/selectors"
 
-
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
 function reducer(state, action) {
+
  const {type, day, days, appointments, interviewers, interview, id} = action
+
   switch (type) {
     case SET_DAY:
       return { ...state, day }
@@ -51,7 +52,6 @@ export default function useApplicationData() {
   })
 
   const setDay = day => dispatch({ type: SET_DAY, day })
-  
   
   useEffect(() => {
     
