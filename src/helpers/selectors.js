@@ -25,17 +25,6 @@ export const getInterviewersForDay = (state, day) => {
   return interviewers
 }
 
-/* export function updateSpots(days, appointments, id, value) {
-  days.forEach(day => {
-    if ((!appointments[id].interview && value === -1) || value === 1) {
-      if(day.appointments.includes(id)) {
-        day.spots = parseInt(day.spots) + value
-      }
-    }
-  })
-  return days;
-} */
-
 function countNullInterviews(day, appointments) {
   let count = 0;
   for (const id of day.appointments) {
