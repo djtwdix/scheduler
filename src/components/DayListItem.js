@@ -12,7 +12,7 @@ export default function DayListItem(props) {
   {"day-list__item--selected": props.selected}, 
   {"day-list__item--full": props.spots === 0})
   return (
-    <li className={dayClass} onClick={setDay}>
+    <li data-testid="day" className={dayClass} onClick={setDay}>
       <h2 className="text--regular">{name}</h2>
       <h3 className="text--light">{formatSpots(spots)}</h3>
     </li>
