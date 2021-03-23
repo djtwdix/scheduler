@@ -75,7 +75,7 @@ export default function Appointment(props) {
   }, [interview, transition, mode])
 
   return(
-    <div className="appointment">
+    <article data-testid="appointment" className="appointment">
       <Header time={time} />
       {mode === SHOW && interview && <Show id={id} student={interview.student} 
                           interviewer={interview.interviewer} onDelete={confirm} onEdit={edit}/>}
@@ -90,6 +90,6 @@ export default function Appointment(props) {
                               interviewers={interviewers} onSave={save} onCancel={onCancel} />}
       {mode === ERROR_SAVE && <Error message="Error saving your appointment" onClose={onCancel}/>}
       {mode === ERROR_DELETE && <Error message="Error deleting your appointment" onClose={onCancel}/>}
-    </div>
+    </article>
   )
 }
