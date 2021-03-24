@@ -2,8 +2,8 @@ import React from "react";
 import axios from "axios"
 
 import { render, cleanup, waitForElement, fireEvent, getByText, 
-         prettyDOM, getAllByTestId, getByRole, getByPlaceholderText, 
-         getByAltText, queryByText, waitForElementToBeRemoved } from "@testing-library/react";
+         getAllByTestId, getByRole, getByPlaceholderText, 
+         getByAltText, queryByText} from "@testing-library/react";
 
 import Application from "components/Application";
 
@@ -60,7 +60,7 @@ describe("Application", () => {
   })
   it ("shows the save error when failing to save an appointment", async () => {
     axios.put.mockRejectedValueOnce()
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"))
     const appointments = getAllByTestId(container, "appointment")
     const appointment = appointments[0]
