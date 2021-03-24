@@ -1,8 +1,8 @@
 /**
  * getAppointmentsForDay() returns an appointments array
  * based on passed in day
- * @param  {} state
- * @param  {} day
+ * @param  {object} state
+ * @param  {string} name of current day
  */
 export const getAppointmentsForDay = (state, day) => {
   const filteredDays = state.days.filter(item => item.name === day)
@@ -18,8 +18,8 @@ export const getAppointmentsForDay = (state, day) => {
  * getInterview() returns interview object
  * with complete interviewer info from state
  * based on passed in interviewer id
- * @param  {} state
- * @param  {} interview contains student (name) and interviewer (id)
+ * @param  {object} state
+ * @param  {object} contains student (name) and interviewer (id)
  */
 export function getInterview(state, interview) {
   if (interview){
@@ -47,8 +47,8 @@ export const getInterviewersForDay = (state, day) => {
 /**
  * countNullInterviewers() returns an integer
  * based on the amount of null interviews for passed in day
- * @param  {} day
- * @param  {} appointments
+ * @param  {object} day
+ * @param  {object} appointments
  */
 function countNullInterviews(day, appointments) {
   let count = 0;
@@ -64,9 +64,9 @@ function countNullInterviews(day, appointments) {
 /**
  * updateSpots() returns a days array
  * with updated spots remaining for passed in day
- * @param  dayName 
- * @param  [] days
- * @param  {} appointments
+ * @param  {string} name of day 
+ * @param  {array} daysday objects
+ * @param  {object} appointments
  */
 export function updateSpots(dayName, days, appointments) {
   const spreadDays = [...days];
