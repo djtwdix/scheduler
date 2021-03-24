@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
 export default function Show(props) {
-  const { student, interviewer, onEdit, onDelete } = props
+  const { student, interviewer, onEdit, onDelete } = props;
 
   const handleDeleteClick = () => {
-    onDelete(props.id)
-  }
+    onDelete(props.id);
+  };
 
   const handleEditClick = () => {
-    onEdit()
-  }
+    onEdit();
+  };
 
   return (
     <main className="appointment__card appointment__card--show">
@@ -22,12 +22,14 @@ export default function Show(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <img onClick={handleEditClick}
+          <img
+            onClick={handleEditClick}
             className="appointment__actions-button"
             src="images/edit.png"
             alt="Edit"
           />
-          <img onClick={handleDeleteClick}
+          <img
+            onClick={handleDeleteClick}
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
@@ -35,5 +37,5 @@ export default function Show(props) {
         </section>
       </section>
     </main>
-  )
+  );
 }
